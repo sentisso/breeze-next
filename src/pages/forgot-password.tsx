@@ -9,6 +9,7 @@ import Label from '@/components/Label'
 import Link from 'next/link'
 import { useAuth } from '@/hooks/auth'
 import { useState } from 'react'
+import NoSSR from '@/components/NoSSR'
 
 const ForgotPassword = () => {
     const { forgotPassword } = useAuth({ middleware: 'guest' })
@@ -45,28 +46,30 @@ const ForgotPassword = () => {
                 {/* Session Status */}
                 <AuthSessionStatus className="mb-4" status={status} />
 
-                <form onSubmit={submitForm}>
-                    {/* Email Address */}
-                    <div>
-                        <Label htmlFor="email">Email</Label>
-                        <Input
-                            id="email"
-                            type="email"
-                            name="email"
-                            value={email}
-                            className="block mt-1 w-full"
-                            onChange={event => setEmail(event.target.value)}
-                            required
-                            autoFocus
-                        />
+                <NoSSR>
+                    <form onSubmit={submitForm}>
+                        {/* Email Address */}
+                        <div>
+                            <Label htmlFor="email">Email</Label>
+                            <Input
+                                id="email"
+                                type="email"
+                                name="email"
+                                value={email}
+                                className="block mt-1 w-full"
+                                onChange={event => setEmail(event.target.value)}
+                                required
+                                autoFocus
+                            />
 
-                        <InputError messages={errors.email} className="mt-2" />
-                    </div>
+                            <InputError messages={errors.email} className="mt-2" />
+                        </div>
 
-                    <div className="flex items-center justify-end mt-4">
-                        <Button>Email Password Reset Link</Button>
-                    </div>
-                </form>
+                        <div className="flex items-center justify-end mt-4">
+                            <Button>Email Password Reset Link</Button>
+                        </div>
+                    </form>
+                </NoSSR>
             </AuthCard>
         </GuestLayout>
     )
